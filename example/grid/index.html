@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>二维布局</title>
+</head>
+
+<body>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .wrapper {
+            width: 100%;
+            height: 100%;
+
+            display: grid;
+
+            grid-template:
+                "header header header" 50px
+                "sidebar content content" 1fr "sidebar footer footer" 50px / 200px 1fr;
+            /* 定义有几行 并给定每行高度 */
+            grid-template-rows: 50px 1fr 50px;
+            /* 定义有几列 并给定每列宽度 */
+            grid-template-columns: 200px 1fr;
+
+            grid-template-areas:
+                "header header header"
+                "sidebar content content"
+                "sidebar footer footer";
+
+            grid-auto-rows: auto;
+            grid-auto-columns: auto;
+
+            /* 
+            该关键字指定自动布局算法按照通过逐行填充来排列元素，在必要时增加新行。
+            如果既没有指定 row 也没有 column，则默认为 row。
+             */
+            grid-auto-flow: row;
+            /*
+            该关键字指定自动布局算法通过逐列填充来排列元素，在必要时增加新列。
+            */
+            grid-auto-flow: column;
+            /* 
+            该关键字指定自动布局算法使用一种“稠密”堆积算法，
+            如果后面出现了稍小的元素，则会试图去填充网格中前面留下的空白。
+            这样做会填上稍大元素留下的空白，但同时也可能导致原来出现的次序被打乱。
+            如果省略它，使用一种「稀疏」算法，
+            在网格中布局元素时，布局算法只会「向前」移动，永远不会倒回去填补空白。
+            这保证了所有自动布局元素「按照次序」出现，即使可能会留下被后面元素填充的空白。
+            */
+            grid-auto-flow: dense;
+            grid-auto-flow: row dense;
+            grid-auto-flow: column dense;
+
+            grid-column-gap: 10px;
+            grid-row-gap: 1em;
+            gap: 1em;
+
+            justify-content: center;
+            align-items: stretch;
+            justify-items: stretch;
+            align-content: stretch;
+        }
+
+        .wrapper>div {
+            border: 1px solid;
+        }
+
+        .header {
+            grid-area: header;
+            grid-area: 1/1/2/4;
+            grid-row: 1 / 2;
+            grid-column: 1 / 4;
+            grid-column: 1 / span 3;
+            grid-row-start: 1;
+            grid-column-start: 1;
+            grid-row-end: 2;
+            grid-column-end: 4;
+        }
+
+        .sidebar {
+            grid-area: sidebar;
+            grid-area: 2/1/4/2;
+            grid-row: 2 / 4;
+            grid-column: 1 / 2;
+            grid-row-start: 2;
+            grid-column-start: 1;
+            grid-row-end: 4;
+            grid-column-end: 2;
+        }
+
+        .content {
+            grid-area: content;
+            grid-area: 2/2/3/4;
+            grid-row: 2 / 3;
+            grid-column: 2 / 4;
+            grid-row-start: 2;
+            grid-column-start: 2;
+            grid-row-end: 3;
+            grid-column-end: 4;
+        }
+
+        .footer {
+            grid-area: footer;
+            grid-area: 3/2/4/4;
+            grid-row: 3 / 4;
+            grid-column: 2 / 4;
+            grid-row-start: 3;
+            grid-column-start: 2;
+            grid-row-end: 4;
+            grid-column-end: 4;
+        }
+    </style>
+    <div class="wrapper">
+        <div class="header">Header</div>
+        <div class="sidebar">Sidebar</div>
+        <div class="content">Content</div>
+        <div class="footer">Footer</div>
+    </div>
+</body>
+
+</html>
